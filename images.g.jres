@@ -1,0 +1,12 @@
+{
+    "image1": {
+        "data": "hwQUABAAAAAAAAAA//8AAPAPAAAPAAAA8PEAAA8AAAAAH////////wDwERERERERAPDxER8R/x8A8BER/xEPHwDw8RH/EQ/wAPAREf8R//8AH/8fEREREfDxAPD///8f8A8AAA8AAB8AAAAADwAA8AAAAAD/DwAAAAAAAB//AAAAAAAAH/EAAAAAAAAf8QAAAAAAAP//AAAAAAAA8A8AAAAAAAAP8AAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "chell"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
