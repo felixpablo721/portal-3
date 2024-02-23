@@ -89,8 +89,11 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Orange_Portal.throwDart()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.blueportalwall, function (sprite, otherSprite) {
-    for (let value of sprites.allOfKind(SpriteKind.orangeportalwall)) {
-        sprite.setPosition(value.x, value.y)
+    if (debounce == 0) {
+        for (let value of sprites.allOfKind(SpriteKind.orangeportalwall)) {
+            sprite.setPosition(value.x, value.y)
+            debounce = 1
+        }
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -118,11 +121,15 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Blue_Portal.throwDart()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.orangeportalwall, function (sprite, otherSprite) {
-    for (let value of sprites.allOfKind(SpriteKind.blueportalwall)) {
-        sprite.setPosition(value.x, value.y)
+    if (debounce == 0) {
+        for (let value of sprites.allOfKind(SpriteKind.blueportalwall)) {
+            sprite.setPosition(value.x, value.y)
+            debounce = 1
+        }
     }
 })
 let Blue_Portal: Dart = null
+let debounce = 0
 let Orange_Portal: Dart = null
 let max_jumps = 0
 let jumps = 0
@@ -266,3 +273,8 @@ controller.player2.moveSprite(Crosshair)
 Crosshair.setStayInScreen(true)
 jumps = 0
 max_jumps = 2
+game.onUpdateInterval(500, function () {
+    if (debounce == 1) {
+        debounce = 0
+    }
+})
