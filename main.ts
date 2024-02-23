@@ -53,18 +53,64 @@ scene.onHitWall(SpriteKind.PortalBlue, function (sprite, location) {
         `)
     sprite.setKind(SpriteKind.blueportalwall)
 })
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (jumps < max_jumps) {
-        jumps += 1
-        Chell.setVelocity(0, -100)
-    }
-})
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (Chell.isHittingTile(CollisionDirection.Bottom)) {
         jumps = 0
     }
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
+sprites.onOverlap(SpriteKind.Player, SpriteKind.blueportalwall, function (sprite, otherSprite) {
+    Debounce(sprites.allOfKind(SpriteKind.orangeportalwall), sprite)
+})
+controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
+    if (jumps < max_jumps) {
+        jumps += 1
+        Chell.setVelocity(0, -100)
+    }
+})
+controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    ammo = 5
+})
+function Debounce (list: Sprite[], mySprite: Sprite) {
+    if (debounce == 0) {
+        for (let value of list) {
+            mySprite.setPosition(value.x, value.y)
+            debounce = 1
+        }
+    }
+}
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    reloadlsitblue.push("A")
+    if (reloadlsitblue.length < 5) {
+        Blue_Portal = darts.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . 8 8 8 8 8 8 8 . . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . 8 8 8 8 8 8 8 8 8 . . . . 
+            . . . . 8 8 8 8 8 8 8 . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Player, Chell.x, Chell.y)
+        Blue_Portal.angle = 0 - spriteutils.radiansToDegrees(spriteutils.angleFrom(Chell, Crosshair))
+        Blue_Portal.setKind(SpriteKind.PortalBlue)
+        Blue_Portal.pow = 1000
+        Blue_Portal.throwDart()
+    } else {
+        ammo = 5 - reloadlsitblue.length
+    }
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.orangeportalwall, function (sprite, otherSprite) {
+    Debounce(sprites.allOfKind(SpriteKind.blueportalwall), sprite)
+})
+controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
     Orange_Portal = darts.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -88,53 +134,19 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     Orange_Portal.pow = 1000
     Orange_Portal.throwDart()
 })
-sprites.onOverlap(SpriteKind.Player, SpriteKind.blueportalwall, function (sprite, otherSprite) {
-    if (debounce == 0) {
-        for (let value of sprites.allOfKind(SpriteKind.orangeportalwall)) {
-            sprite.setPosition(value.x, value.y)
-            debounce = 1
-        }
-    }
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    Blue_Portal = darts.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . 8 8 8 8 8 8 8 . . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . 8 8 8 8 8 8 8 8 8 . . . . 
-        . . . . 8 8 8 8 8 8 8 . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player, Chell.x, Chell.y)
-    Blue_Portal.angle = 0 - spriteutils.radiansToDegrees(spriteutils.angleFrom(Chell, Crosshair))
-    Blue_Portal.setKind(SpriteKind.PortalBlue)
-    Blue_Portal.pow = 1000
-    Blue_Portal.throwDart()
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.orangeportalwall, function (sprite, otherSprite) {
-    if (debounce == 0) {
-        for (let value of sprites.allOfKind(SpriteKind.blueportalwall)) {
-            sprite.setPosition(value.x, value.y)
-            debounce = 1
-        }
-    }
-})
+let Orange_Portal: Dart = null
 let Blue_Portal: Dart = null
 let debounce = 0
-let Orange_Portal: Dart = null
 let max_jumps = 0
 let jumps = 0
 let Crosshair: Sprite = null
 let Chell: Sprite = null
+let ammo = 0
+let reloadlsitblue: string[] = []
+let reaload_combo = ["A", "B"]
+let reloadlistorange: number[] = []
+reloadlsitblue = []
+ammo = 5
 Chell = sprites.create(assets.image`chell`, SpriteKind.Player)
 controller.moveSprite(Chell, 100, 0)
 tiles.setCurrentTilemap(tilemap`level4`)
