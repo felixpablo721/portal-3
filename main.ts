@@ -72,62 +72,28 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     }
 })
 function changeAttack (powerUp: Sprite) {
-    if (powerUp.image.equals(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `)) {
+    if (powerUp.image.equals(assets.image`energy drink`)) {
         controller.moveSprite(Chell, 150, 0)
     } else if (powerUp.image.equals(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . 
+        . . . . . . . . . d . . . . . 
+        . . . . . . . . d e f f . . . 
+        . . . . . . . . b e e f c c . 
+        . . . . . . . . f e e e e c . 
+        . . . . . . . . f e e f e b . 
+        . . . . . . . b e e f e e e . 
+        . . . . . . c e e d d f e d . 
+        . . . . . c c c f d d d f f e 
+        . . . . c e c d f d c c e e e 
+        . . d 1 3 4 d d f f b d e e e 
+        e e e 1 e e e d d d d e e e e 
+        e e e e e e e d d d d e e e e 
+        b d 1 e e e e d 1 d d d d d d 
+        e e d d d d d d d d d d d d d 
+        . 1 1 c f f e e e e e c f f d 
         `)) {
         max_jumps = 4
-    } else if (powerUp.image.equals(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `)) {
+    } else if (powerUp.image.equals(assets.image`Portal amp`)) {
         portalsize += 1
     }
 }
@@ -139,6 +105,17 @@ function Debounce (list: Sprite[], mySprite: Sprite) {
         }
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`pressureplate`, function (sprite, location) {
+    Powersprite = sprites.create(poweruplistsprites._pickRandom(), SpriteKind.powerUp)
+    tiles.placeOnTile(Powersprite, location)
+    Poweruplist.push(Powersprite)
+    tiles.setTileAt(location, assets.tile`transparency16`)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava1, function (sprite, location) {
+    sprites.destroy(Chell)
+    pause(500)
+    game.gameOver(false)
+})
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     Blue_Portal = darts.create(img`
         . . . . . . . . . . . . . . . . 
@@ -190,12 +167,6 @@ controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
     Orange_Portal.pow = 1000
     Orange_Portal.throwDart()
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`transparency16`, function (sprite, location) {
-    Powersprite = sprites.create(poweruplistsprites._pickRandom(), SpriteKind.powerUp)
-    tiles.placeOnTile(Powersprite, location)
-    Poweruplist.push(Powersprite)
-    tiles.setTileAt(location, assets.tile`transparency16`)
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.powerUp, function (sprite, otherSprite) {
     playerpowers.push(otherSprite)
     Poweruplist.removeAt(Poweruplist.indexOf(otherSprite))
@@ -214,24 +185,7 @@ let max_jumps = 0
 let jumps = 0
 let Crosshair2: Sprite = null
 let Chell: Sprite = null
-Chell = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Player)
+Chell = sprites.create(assets.image`chellsprite`, SpriteKind.Player)
 controller.moveSprite(Chell, 100, 0)
 tiles.setCurrentTilemap(tilemap`level4`)
 scene.setBackgroundImage(img`
@@ -372,59 +326,26 @@ max_jumps = 2
 playerpowers = []
 Poweruplist = []
 poweruplistsprites = [img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `]
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 d 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 d e f f 1 1 1 
+    1 1 1 1 1 1 1 1 b e e f c c 1 
+    1 1 1 1 1 1 1 1 f e e e e c 1 
+    1 1 1 1 1 1 1 1 f e e f e b 1 
+    1 1 1 1 1 1 1 b e e f e e e 1 
+    1 1 1 1 1 1 c e e d d f e d 1 
+    1 1 1 1 1 c c c f d d d f f e 
+    1 1 1 1 c e c d f d c c e e e 
+    1 1 d 1 3 4 d d f f b d e e e 
+    e e e 1 e e e d d d d e e e e 
+    e e e e e e e d d d d e e e e 
+    b d 1 e e e e d 1 d d d d d d 
+    e e d d d d d d d d d d d d d 
+    1 1 1 c f f e e e e e c f f d 
+    `, assets.image`Portal amp`, assets.image`energy drink`]
 let spritelocation = tiles.getTilesByType(sprites.builtin.forestTiles0)
 portalsize = 1
+Crosshair2.setFlag(SpriteFlag.GhostThroughWalls, true)
 game.onUpdateInterval(750, function () {
     if (debounce == 1) {
         debounce = 0

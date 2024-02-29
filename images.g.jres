@@ -4,6 +4,21 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "chell"
     },
+    "image2": {
+        "data": "hwQQABwAAAAAAAAAAAAAAAAAAPD/DwAAAAAADwAAAAAAAAAPAPAAAAAA/w8AAAAAAAAAZmYGAADw//8R3d0Ry0QARB8fZgAA/9/d0d3dHctERET/AGYAAP//3dER0R3LREREAABgAAD/390RERHdy0REAAAAAAAA/93dERER3ctEBAAAAAAAAP/d3QAAAB0AQEQA8P8PAADwDwAAAAARAQBERA8A8AAAAAAAAAAAEQEAQERmZgYAAAAAAAAAABEPAABEHx9mAAAAAAAAAAD/AAAAAAAAZgAAAAAAAAAA/wEAAAAAAGAAAAAAAAAA8B/xAAAAAAAAAAAAAAAAAA8fAQ8AAAAAAAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "chellsprite"
+    },
+    "image3": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIiIiAgAAACAqqqqigAAAKjIzMyoCAAAqGxmZqwIAACobIhorAgAAKhsmGisCAAAqGyIaKwIAACobGZmrAgAAKjIzMyoCAAAgKqqqooAAAAAiIiICAAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Portal amp"
+    },
+    "image4": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wDw+4iI/4iID7+7j//1iIj4v7//VfX4j/i/v19V9V/1+L+7X1VVVY/4v7tfVVX1iPi/v1/1VY+I+L+7///1iIj4v7uP+I+IiPjw+4iIiIiIDwD///////8AAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "energy drink"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
