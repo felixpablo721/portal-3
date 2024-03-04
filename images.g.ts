@@ -91,6 +91,25 @@ f.666...f.666...
 . . . f 8 8 8 8 8 8 8 8 f . . . 
 . . . . f f f f f f f f . . . . 
 `;
+            case "GK1njCYDM8GjQjY(PL()":
+            case "jordan1":return img`
+. . . . . . . . . . . . . . . 
+. . . . . . . . . d . . . . . 
+. . . . . . . . d e f f . . . 
+. . . . . . . . b e e f c c . 
+. . . . . . . . f e e e e c . 
+. . . . . . . . f e e f e b . 
+. . . . . . . b e e f e e e . 
+. . . . . . c e e d d f e d . 
+. . . . . c c c f d d d f f e 
+. . . . c e c d f d c c e e e 
+. . d 1 3 4 d d f f b d e e e 
+e e e 1 e e e d d d d e e e e 
+e e e e e e e d d d d e e e e 
+b d 1 e e e e d 1 d d d d d d 
+e e d d d d d d d d d d d d d 
+. 1 1 c f f e e e e e c f f d 
+`;
         }
         return null;
     })
