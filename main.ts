@@ -105,6 +105,10 @@ function Debounce (list: Sprite[], mySprite: Sprite) {
         }
     }
 }
+scene.onOverlapTile(SpriteKind.Player, sprites.builtin.forestTiles10, function (sprite, location) {
+    sprites.destroy(Chell)
+    game.gameOver(false)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`pressureplate`, function (sprite, location) {
     Powersprite = sprites.create(poweruplistsprites._pickRandom(), SpriteKind.powerUp)
     tiles.placeOnTile(Powersprite, location)
@@ -203,24 +207,7 @@ jumps = 0
 max_jumps = 2
 playerpowers = []
 Poweruplist = []
-poweruplistsprites = [img`
-    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-    1 1 1 1 1 1 1 1 1 d 1 1 1 1 1 
-    1 1 1 1 1 1 1 1 d e f f 1 1 1 
-    1 1 1 1 1 1 1 1 b e e f c c 1 
-    1 1 1 1 1 1 1 1 f e e e e c 1 
-    1 1 1 1 1 1 1 1 f e e f e b 1 
-    1 1 1 1 1 1 1 b e e f e e e 1 
-    1 1 1 1 1 1 c e e d d f e d 1 
-    1 1 1 1 1 c c c f d d d f f e 
-    1 1 1 1 c e c d f d c c e e e 
-    1 1 d 1 3 4 d d f f b d e e e 
-    e e e 1 e e e d d d d e e e e 
-    e e e e e e e d d d d e e e e 
-    b d 1 e e e e d 1 d d d d d d 
-    e e d d d d d d d d d d d d d 
-    1 1 1 c f f e e e e e c f f d 
-    `, assets.image`Portal amp`, assets.image`energy drink`]
+poweruplistsprites = [assets.image`jordan`, assets.image`Portal amp`, assets.image`energy drink`]
 let spritelocation = tiles.getTilesByType(sprites.builtin.forestTiles0)
 portalsize = 1
 Crosshair2.setFlag(SpriteFlag.GhostThroughWalls, true)
